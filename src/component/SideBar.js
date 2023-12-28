@@ -38,8 +38,7 @@ export const SideBar = ({menubar, data}) => {
       
     const handleLogout =async (e) =>{
         try {
-            let coba = await API_GUDANG.delete('/logout');
-            console.log(coba)
+            await API_GUDANG.delete('/logout');
             navigate('/login');
         } catch (error) {
             console.log(error)

@@ -106,18 +106,22 @@ const Login = ({handleClick}) => {
             return;
         }
         try {
-            setIsLoading(false);
-            await axios.post(`http://pdb.dagsapp.com/dagsap/login`,
-            {
+            setIsLoading(true);
+            const res = await axios.post(`${process.env.REACT_APP_API_KEY_SR}/login`,{
                 "id" : idkar,
                 "password" : pwd
+            },
+            {
+              withCredentials: true,
             });
+            localStorage.setItem("token", res.data?.refreshToken); 
             setIsLoading(false);
             navigate('/');
         } catch (error) {
             if(error.response){
                 console.log(error);
                 setIsLoading(false);
+                Swal.fire('Oppss','Terjadi Kesalahan','error')
             }
         }
     }

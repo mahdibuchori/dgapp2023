@@ -25,10 +25,7 @@ const useDataDepartemen = create(
                         parentName : dataRow[4],
                         })
                     }
-                    console.log(data)
-                    
                     jo.departemen = data;
-                    console.log(jo)
                     set(produce((state) => {
                         state.departemen = jo;
                         state.departemenReady = true;

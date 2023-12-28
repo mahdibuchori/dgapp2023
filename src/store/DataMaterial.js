@@ -29,10 +29,8 @@ const useDataMaterial = create(
                         available_stok : dataRow[8], 
                         })
                     }
-                    console.log(data)
                     
                     jo.material = data;
-                    console.log(jo)
                     set(produce((state) => {
                         state.material = jo;
                         state.materialReady = true;

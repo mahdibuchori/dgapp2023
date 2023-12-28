@@ -75,7 +75,12 @@ const Dashboard = () => {
 
     const refreshToken = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_KEY_YT}/token`);
+            const response = await axios.get(`${process.env.REACT_APP_API_KEY_SR}/token`,{
+                headers:{
+                    cookies: localStorage.token
+                }
+            },{withCredentials: true});
+            localStorage.clear()
             setToken(response.data.accessToken);
             const decode = jwtDecode(response.data.accessToken);
             setExpire(decode.exp);
@@ -86,18 +91,26 @@ const Dashboard = () => {
             }
         }
     }
-
-    const axiosJWT = axios.create();
+    
+    const axiosJWT = axios.create({
+        withCredentials: true
+    })
 
     axiosJWT.interceptors.request.use(async(config) =>{
         const currentDate = new Date();
         if(expire * 1000 < currentDate.getTime()){
-            const response = await axios.get(`${process.env.REACT_APP_API_KEY_YT}/token`);
+            const response = await axios.get(`${process.env.REACT_APP_API_KEY_SR}/token`,{
+                headers:{
+                    cookies: localStorage.token
+                }
+            },{withCredentials: true});
+            localStorage.clear()
             config.headers.Authorization = `Bearer ${response.data.accessToken}`;
             setToken(response.data.accessToken);
             const decode = jwtDecode(response.data.accessToken);
             setExpire(decode.expire);
         }
+        
         return config;
     }, (error)=>{
         return Promise.reject(error);
@@ -105,7 +118,7 @@ const Dashboard = () => {
 
     const getUsers = async () =>{
         try {
-            const response = await axiosJWT.get(`${process.env.REACT_APP_API_KEY_YT}/users`,{
+            const response = await axiosJWT.get(`${process.env.REACT_APP_API_KEY_SR}/users`,{
             headers:{
                 Authorization: `Bearer ${token}`
             }

@@ -23,7 +23,6 @@ const Banner = () => {
     }, [text])
 
     const tick = () => {
-        console.log(index);
         let i = loopNum % toRotate.length;
         let fullText = toRotate[i];
         let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
@@ -44,7 +43,7 @@ const Banner = () => {
         setIndex(1);
         setDelta(500);
         } else {
-        setIndex(prevIndex => prevIndex + 1);
+            setIndex(prevIndex => prevIndex + 1);
         }
     }
     return (
@@ -59,6 +58,7 @@ const Banner = () => {
                                 src={SosBak}
                                 alt="First slide"
                             />
+                            <p style={{display: 'none'}}>{index}</p>
                             <Carousel.Caption>
                             </Carousel.Caption>
                         </Carousel.Item>
