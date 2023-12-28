@@ -108,7 +108,7 @@ const Login = ({handleClick}) => {
         try {
             setIsLoading(true);
             console.log(process.env.REACT_APP_API_KEY_SR)
-            const res = await axios.post(`${process.env.REACT_APP_API_KEY_SR}/login`,{
+            const res = await axios.post(`https://pdb.dagsapp.com/dagsap/login`,{
                 "id" : idkar,
                 "password" : pwd
             },
